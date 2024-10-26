@@ -42,7 +42,6 @@ export class Name {
                 finalString += delimiter + this.getComponent(i);
             }
         }
-
         return finalString;
     }
 
