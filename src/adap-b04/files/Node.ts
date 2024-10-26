@@ -9,7 +9,7 @@ export class Node {
 
     constructor(bn: string, pn: Directory) {
         //precondition
-        IllegalArgumentException.assertIsNotNullOrUndefined(bn);
+        IllegalArgumentException.assert(bn != null && bn != undefined,"Should not be null or undefined");
         this.doSetBaseName(bn);
         this.parentNode = pn; // why oh why do I have to set this
         this.initialize(pn);
@@ -17,12 +17,12 @@ export class Node {
 
     protected initialize(pn: Directory): void {
         this.parentNode = pn;
-        this.parentNode.addChildNode(this);
+        this.parentNode.add(this);
     }
 
     public move(to: Directory): void {
         //precondition
-        IllegalArgumentException.assertIsNotNullOrUndefined(to);
+        IllegalArgumentException.assert(to != null && to != undefined,"Should not be null or undefined");
         this.parentNode.remove(this);
         to.add(this);
         this.parentNode = to;
@@ -44,13 +44,13 @@ export class Node {
 
     public rename(bn: string): void {
         //precondition
-        IllegalArgumentException.assertIsNotNullOrUndefined(bn);
+        IllegalArgumentException.assert(bn != null && bn != undefined,"Should not be null or undefined");
         this.doSetBaseName(bn);
     }
 
     protected doSetBaseName(bn: string): void {
         //precondition
-        IllegalArgumentException.assertIsNotNullOrUndefined(bn);
+        IllegalArgumentException.assert(bn != null && bn != undefined,"Should not be null or undefined");
         this.baseName = bn;
     }
 
