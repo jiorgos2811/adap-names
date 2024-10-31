@@ -8,11 +8,18 @@ export class StringName implements Name {
     protected length: number = 0;
 
     constructor(other: string, delimiter?: string) {
-        throw new Error("needs implementation");
+        this.name = other;
+        this.length = other.length;
+        if (delimiter) {
+            this.delimiter = delimiter; 
+        } 
+        else {
+            this.delimiter = DEFAULT_DELIMITER; 
+        } 
     }
 
     public asString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation");
+        return this.name;
     }
 
     public asDataString(): string {
@@ -20,35 +27,64 @@ export class StringName implements Name {
     }
 
     public isEmpty(): boolean {
-        throw new Error("needs implementation");
+        return this.name.length == 0;
     }
 
     public getDelimiterCharacter(): string {
-        throw new Error("needs implementation");
+        return this.delimiter;
     }
 
     public getNoComponents(): number {
-        throw new Error("needs implementation");
+        if (this.name) {
+            return this.name.split(this.delimiter).length;
+        } else {
+            return 0;
+        }
     }
 
     public getComponent(x: number): string {
-        throw new Error("needs implementation");
+        const components = this.name.split(this.delimiter);
+        if (x >= 0 && x < components.length) {
+            return components[x];
+        }
+        else throw new Error("Index out of bounds");
     }
 
     public setComponent(n: number, c: string): void {
-        throw new Error("needs implementation");
+        const components = this.name.split(this.delimiter);
+        if (n >= 0 && n < components.length) {
+            components[n] = c;
+            this.name = components.join(this.delimiter);
+            this.length = this.name.length;
+        }
+        else throw new Error("Index out of bounds");
     }
 
     public insert(n: number, c: string): void {
-        throw new Error("needs implementation");
+        const components = this.name.split(this.delimiter);
+        if (n >= 0 && n <= components.length) {
+            components.splice(n, 0, c);
+            this.name = components.join(this.delimiter);
+            this.length = this.name.length;
+        } else {
+            throw new Error("Index out of bounds");
+        }
     }
 
     public append(c: string): void {
-        throw new Error("needs implementation");
+        this.name += this.delimiter + c;
+        this.length += c.length;
     }
 
     public remove(n: number): void {
-        throw new Error("needs implementation");
+        const components = this.name.split(this.delimiter);
+        if (n >= 0 && n < components.length) {
+            components.splice(n, 1); // Remove the specified component
+            this.name = components.join(this.delimiter); // Rejoin components into the name
+            this.length = this.name.length; // Update the length
+        } else {
+            throw new Error("Index out of bounds");
+        }
     }
 
     public concat(other: Name): void {

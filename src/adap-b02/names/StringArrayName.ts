@@ -6,11 +6,17 @@ export class StringArrayName implements Name {
     protected delimiter: string = DEFAULT_DELIMITER;
 
     constructor(other: string[], delimiter?: string) {
-        throw new Error("needs implementation");
+        this.components = other;
+        if (delimiter) {
+            this.delimiter = delimiter; 
+        } 
+        else {
+            this.delimiter = DEFAULT_DELIMITER; 
+        } 
     }
 
     public asString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation");
+        return this.components.join(delimiter);
     }
 
     public asDataString(): string {
@@ -18,35 +24,35 @@ export class StringArrayName implements Name {
     }
 
     public isEmpty(): boolean {
-        throw new Error("needs implementation");
+        return this.components.length == 0;
     }
 
     public getDelimiterCharacter(): string {
-        throw new Error("needs implementation");
+        return this.delimiter;
     }
 
     public getNoComponents(): number {
-        throw new Error("needs implementation");
+        return this.components.length;
     }
 
     public getComponent(i: number): string {
-        throw new Error("needs implementation");
+        return this.components[i];
     }
 
     public setComponent(i: number, c: string): void {
-        throw new Error("needs implementation");
+        this.components[i] = c;
     }
 
     public insert(i: number, c: string): void {
-        throw new Error("needs implementation");
+        this.components.splice(i, 0, c);
     }
 
     public append(c: string): void {
-        throw new Error("needs implementation");
+        this.components.push(c);
     }
 
     public remove(i: number): void {
-        throw new Error("needs implementation");
+        this.components.splice(i, 1);
     }
 
     public concat(other: Name): void {
