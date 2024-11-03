@@ -9,7 +9,7 @@ export class StringName implements Name {
 
     constructor(other: string, delimiter?: string) {
         this.name = other;
-        this.length = other.length;
+        this.length = this.name.split(this.delimiter).length;
         if (delimiter) {
             this.delimiter = delimiter; 
         } 
@@ -59,7 +59,6 @@ export class StringName implements Name {
         if (n >= 0 && n < components.length) {
             components[n] = c;
             this.name = components.join(this.delimiter);
-            this.length = this.name.length;
         }
         else throw new Error("Index out of bounds");
     }
@@ -69,7 +68,7 @@ export class StringName implements Name {
         if (n >= 0 && n <= components.length) {
             components.splice(n, 0, c);
             this.name = components.join(this.delimiter);
-            this.length = this.name.length;
+            this.length += 1;
         } else {
             throw new Error("Index out of bounds");
         }
@@ -77,15 +76,15 @@ export class StringName implements Name {
 
     public append(c: string): void {
         this.name += this.delimiter + c;
-        this.length += c.length;
+        this.length += 1;
     }
 
     public remove(n: number): void {
         const components = this.name.split(this.delimiter);
         if (n >= 0 && n < components.length) {
-            components.splice(n, 1); // Remove the specified component
-            this.name = components.join(this.delimiter); // Rejoin components into the name
-            this.length = this.name.length; // Update the length
+            components.splice(n, 1); 
+            this.name = components.join(this.delimiter); 
+            this.length -= 1; 
         } else {
             throw new Error("Index out of bounds");
         }
