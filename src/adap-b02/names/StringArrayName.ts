@@ -20,7 +20,16 @@ export class StringArrayName implements Name {
     }
 
     public asDataString(): string {
-        throw new Error("needs implementation");
+        const escapedComponents: string[] = [];
+    
+        for (const component of this.components) {
+            //Replace instances of the delimiter in the component with the escape character + delimiter
+            const escapedComponent = component.replaceAll(this.delimiter, ESCAPE_CHARACTER + this.delimiter);
+            escapedComponents.push(escapedComponent);
+        }
+        const result = escapedComponents.join(this.delimiter);
+    
+        return result;
     }
 
     public isEmpty(): boolean {
@@ -36,14 +45,24 @@ export class StringArrayName implements Name {
     }
 
     public getComponent(i: number): string {
+        if (i < 0 || i >= this.components.length) {
+            throw new Error("Index out of bounds");
+        }
+            
         return this.components[i];
     }
 
     public setComponent(i: number, c: string): void {
+        if (i < 0 || i >= this.components.length) {
+            throw new Error("Index out of bounds");
+        }
         this.components[i] = c;
     }
 
     public insert(i: number, c: string): void {
+        if (i < 0 || i >= this.components.length) {
+            throw new Error("Index out of bounds");
+        }
         this.components.splice(i, 0, c);
     }
 
@@ -52,11 +71,16 @@ export class StringArrayName implements Name {
     }
 
     public remove(i: number): void {
+        if (i < 0 || i >= this.components.length) {
+            throw new Error("Index out of bounds");
+        }
         this.components.splice(i, 1);
     }
 
     public concat(other: Name): void {
-        throw new Error("needs implementation");
+        for (let i = 0; i < other.getNoComponents(); i++) {
+            this.components.push(other.getComponent(i));
+        }
     }
 
 }
