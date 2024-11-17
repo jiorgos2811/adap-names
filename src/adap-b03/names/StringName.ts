@@ -8,27 +8,59 @@ export class StringName extends AbstractName {
 
     constructor(other: string, delimiter?: string) {
         super();
-        throw new Error("needs implementation");
+        this.name = other;
+        this.length = this.name.split(this.delimiter).length;
     }
 
     getNoComponents(): number {
-        throw new Error("needs implementation");
+        if (this.name) {
+            return this.name.split(this.delimiter).length;
+        } else {
+            return 0;
+        }
     }
 
     getComponent(i: number): string {
-        throw new Error("needs implementation");
+        const components = this.name.split(this.delimiter);
+        if (i >= 0 && i < components.length) {
+            return components[i];
+        }
+        else throw new Error("Index out of bounds");
     }
+
     setComponent(i: number, c: string) {
-        throw new Error("needs implementation");
+        const components = this.name.split(this.delimiter);
+        if (i >= 0 && i < components.length) {
+            components[i] = c;
+            this.name = components.join(this.delimiter);
+        }
+        else throw new Error("Index out of bounds");
     }
 
     insert(i: number, c: string) {
-        throw new Error("needs implementation");
+        const components = this.name.split(this.delimiter);
+        if (i >= 0 && i <= components.length) {
+            components.splice(i, 0, c);
+            this.name = components.join(this.delimiter);
+            this.length += 1;
+        } else {
+            throw new Error("Index out of bounds");
+        }
     }
+
     append(c: string) {
-        throw new Error("needs implementation");
+        this.name += this.delimiter + c;
+        this.length += 1;
     }
+
     remove(i: number) {
-        throw new Error("needs implementation");
+        const components = this.name.split(this.delimiter);
+        if (i >= 0 && i < components.length) {
+            components.splice(i, 1); 
+            this.name = components.join(this.delimiter); 
+            this.length -= 1; 
+        } else {
+            throw new Error("Index out of bounds");
+        }
     }
 }
