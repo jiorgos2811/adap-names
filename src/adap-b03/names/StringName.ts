@@ -9,59 +9,60 @@ export class StringName extends AbstractName {
 
     constructor(source: string, delimiter?: string) {
         super();
-        throw new Error("needs implementation or deletion");
+        this.name = other;
+        this.length = this.name.split(this.delimiter).length;
     }
 
-    public clone(): Name {
-        throw new Error("needs implementation or deletion");
+    getNoComponents(): number {
+        if (this.name) {
+            return this.name.split(this.delimiter).length;
+        } else {
+            return 0;
+        }
     }
 
-    public asString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation or deletion");
+    getComponent(i: number): string {
+        const components = this.name.split(this.delimiter);
+        if (i >= 0 && i < components.length) {
+            return components[i];
+        }
+        else throw new Error("Index out of bounds");
     }
 
-    public asDataString(): string {
-        throw new Error("needs implementation or deletion");
+    setComponent(i: number, c: string) {
+        const components = this.name.split(this.delimiter);
+        if (i >= 0 && i < components.length) {
+            components[i] = c;
+            this.name = components.join(this.delimiter);
+        }
+        else throw new Error("Index out of bounds");
     }
 
-    public isEqual(other: Name): boolean {
-        throw new Error("needs implementation or deletion");
+    insert(i: number, c: string) {
+        const components = this.name.split(this.delimiter);
+        if (i >= 0 && i <= components.length) {
+            components.splice(i, 0, c);
+            this.name = components.join(this.delimiter);
+            this.length += 1;
+        } else {
+            throw new Error("Index out of bounds");
+        }
     }
 
-    public getHashCode(): number {
-        throw new Error("needs implementation or deletion");
+    append(c: string) {
+        this.name += this.delimiter + c;
+        this.length += 1;
     }
 
-    public isEmpty(): boolean {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public getDelimiterCharacter(): string {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public getNoComponents(): number {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public getComponent(i: number): string {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public setComponent(i: number, c: string) {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public insert(i: number, c: string) {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public append(c: string) {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public remove(i: number) {
-        throw new Error("needs implementation or deletion");
+    remove(i: number) {
+        const components = this.name.split(this.delimiter);
+        if (i >= 0 && i < components.length) {
+            components.splice(i, 1); 
+            this.name = components.join(this.delimiter); 
+            this.length -= 1; 
+        } else {
+            throw new Error("Index out of bounds");
+        }
     }
 
     public concat(other: Name): void {
