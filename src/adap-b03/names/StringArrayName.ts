@@ -8,7 +8,7 @@ export class StringArrayName extends AbstractName {
 
     constructor(source: string[], delimiter?: string) {
         super();
-        this.components = other;
+        this.components = source;
     }
 
     getNoComponents(): number {

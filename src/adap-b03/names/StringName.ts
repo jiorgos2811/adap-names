@@ -9,8 +9,8 @@ export class StringName extends AbstractName {
 
     constructor(source: string, delimiter?: string) {
         super();
-        this.name = other;
-        this.length = this.name.split(this.delimiter).length;
+        this.name = source;
+        this.noComponents = this.name.split(this.delimiter).length;
     }
 
     getNoComponents(): number {
@@ -43,7 +43,7 @@ export class StringName extends AbstractName {
         if (i >= 0 && i <= components.length) {
             components.splice(i, 0, c);
             this.name = components.join(this.delimiter);
-            this.length += 1;
+            this.noComponents += 1;
         } else {
             throw new Error("Index out of bounds");
         }
@@ -51,7 +51,7 @@ export class StringName extends AbstractName {
 
     append(c: string) {
         this.name += this.delimiter + c;
-        this.length += 1;
+        this.noComponents += 1;
     }
 
     remove(i: number) {
@@ -59,7 +59,7 @@ export class StringName extends AbstractName {
         if (i >= 0 && i < components.length) {
             components.splice(i, 1); 
             this.name = components.join(this.delimiter); 
-            this.length -= 1; 
+            this.noComponents -= 1; 
         } else {
             throw new Error("Index out of bounds");
         }
