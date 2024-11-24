@@ -15,6 +15,10 @@ export class StringArrayName extends AbstractName {
             other,
             "Component array cannot be null"
         );
+        IllegalArgumentException.assertCondition(
+            other.every(component => component !== null && component !== undefined),
+            "All components must be non-null"
+        );
         
         super(delimiter);
         this.components = other; 
