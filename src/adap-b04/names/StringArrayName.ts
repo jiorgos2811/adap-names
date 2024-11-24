@@ -35,7 +35,6 @@ export class StringArrayName extends AbstractName {
             count >= 0,
             "Component count must be non-negative"
         );
-        this.assertInvariant();
         return count;
     }
 
