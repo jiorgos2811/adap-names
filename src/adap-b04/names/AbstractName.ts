@@ -146,6 +146,7 @@ export abstract class AbstractName implements Name {
         this.assertInvariant();
     }
 
+    protected abstract isInitialized(): boolean;
     protected assertInvariant(): void {
         // Invariant 1: delimiter must not be null or undefined
         InvalidStateException.assert(
@@ -158,7 +159,12 @@ export abstract class AbstractName implements Name {
             !this.delimiter.includes(ESCAPE_CHARACTER),
             "Invariant violated: delimiter must not contain the escape character"
         );
-        
+
+        // Skip component checks during construction
+        if (!this.isInitialized()) {
+            return;
+        }
+
         // Invariant 3: number of components must be non-negative
         InvalidStateException.assert(
             this.getNoComponents() >= 0,
