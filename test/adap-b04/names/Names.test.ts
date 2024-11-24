@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { StringName } from './StringName';
-import { StringArrayName } from './StringArrayName';
-import { IllegalArgumentException } from '../common/IllegalArgumentException';
-import { InvalidStateException } from '../common/InvalidStateException';
+import { StringName } from '../../../src/adap-b04/names/StringName';
+import { StringArrayName } from '../../../src/adap-b04/names/StringArrayName';
+import { IllegalArgumentException } from '../../../src/adap-b04/common/IllegalArgumentException';
+import { InvalidStateException } from '../../../src/adap-b04/common/InvalidStateException';
 
 describe('Name Implementation Tests', () => {
     describe('StringName Contract Tests', () => {
