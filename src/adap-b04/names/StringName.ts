@@ -60,7 +60,6 @@ export class StringName extends AbstractName {
             result != null && result != undefined,
             "Component cannot be null"
         );
-        this.assertInvariant();
         return result;
     }
 
