@@ -15,7 +15,7 @@ export class StringArrayName extends AbstractName {
             other != null && other != undefined,
             "Component array cannot be null"
         );
-        IllegalArgumentException.assertCondition(
+        IllegalArgumentException.assert(
             other.every(component => component !== null && component !== undefined),
             "All components must be non-null"
         );
