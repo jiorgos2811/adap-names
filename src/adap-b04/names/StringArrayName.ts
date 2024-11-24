@@ -52,7 +52,6 @@ export class StringArrayName extends AbstractName {
             result != null && result != undefined,
             "Retrieved component cannot be null"
         );
-        this.assertInvariant();
         return result;
     }
 
