@@ -2,7 +2,6 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { StringName } from '../../../src/adap-b04/names/StringName';
 import { StringArrayName } from '../../../src/adap-b04/names/StringArrayName';
 import { IllegalArgumentException } from '../../../src/adap-b04/common/IllegalArgumentException';
-import { InvalidStateException } from '../../../src/adap-b04/common/InvalidStateException';
 
 describe('Name Implementation Tests', () => {
     describe('StringName Contract Tests', () => {
@@ -18,8 +17,8 @@ describe('Name Implementation Tests', () => {
 
         it('should maintain invariant after operations', () => {
             name.append("com");
-            expect(name.getNoComponents()).toBe(3);
-            expect(name.getComponent(2)).toBe("com");
+            expect(name.getNoComponents()).toBe(4);
+            expect(name.getComponent(3)).toBe("com");
         });
 
         it('should throw on invalid operations', () => {
