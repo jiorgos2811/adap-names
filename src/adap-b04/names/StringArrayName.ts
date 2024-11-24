@@ -147,4 +147,9 @@ export class StringArrayName extends AbstractName {
         this.assertInvariant();
     }
 
+    //Checks if initialized in order to avoid infinite calls with assertInvariance
+    protected isInitialized(): boolean {
+        return this.components !== undefined;
+    }
+
 }
