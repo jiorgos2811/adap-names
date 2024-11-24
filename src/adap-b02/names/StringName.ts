@@ -1,9 +1,9 @@
-import { Name, DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "./Name";
+import { DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "../common/Printable";
+import { Name } from "./Name";
 
 export class StringName implements Name {
 
     protected delimiter: string = DEFAULT_DELIMITER;
-
     protected name: string = "";
     protected length: number = 0;
 
@@ -31,7 +31,7 @@ export class StringName implements Name {
     }
 
     public isEmpty(): boolean {
-        return this.name.length == 0;
+        throw new Error("needs implementation");
     }
 
     public getDelimiterCharacter(): string {
