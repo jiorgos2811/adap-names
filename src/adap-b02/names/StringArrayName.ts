@@ -35,14 +35,10 @@ export class StringArrayName implements Name {
 
     public isEmpty(): boolean {
         return this.components.length == 0;
-    public getDelimiterCharacter(): string {
-        throw new Error("needs implementation");
     }
 
     public getDelimiterCharacter(): string {
         return this.delimiter;
-    public isEmpty(): boolean {
-        throw new Error("needs implementation");
     }
 
     public getNoComponents(): number {
