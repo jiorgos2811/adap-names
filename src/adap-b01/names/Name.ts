@@ -31,7 +31,7 @@ export class Name {
 
     /** Returns human-readable representation of Name instance */
     // @methodtype conversion-method 
-    public asNameString(delimiter: string = this.delimiter): string {
+    public asString(delimiter: string = this.delimiter): string {
         let finalString: string = "";
 
         for (let i = 0; i < this.getNoComponents(); i++) {
