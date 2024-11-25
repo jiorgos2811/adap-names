@@ -1,6 +1,7 @@
 import { Name } from "../names/Name";
 import { StringName } from "../names/StringName";
 import { Directory } from "./Directory";
+import { IllegalArgumentException } from "../common/IllegalArgumentException";
 
 export class RootNode extends Directory {
 
@@ -23,10 +24,14 @@ export class RootNode extends Directory {
     }
 
     public move(to: Directory): void {
+        //precondition
+        IllegalArgumentException.assert(to != null && to != undefined, "Target directory must not be null or undefined");
         // null operation
     }
 
     protected doSetBaseName(bn: string): void {
+        //precondition
+        IllegalArgumentException.assert(bn != null && bn != undefined, "Base name must not be null or undefined");
         // null operation
     }
 
