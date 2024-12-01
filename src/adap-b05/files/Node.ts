@@ -1,6 +1,7 @@
 import { IllegalArgumentException } from "../common/IllegalArgumentException";
 import { InvalidStateException } from "../common/InvalidStateException";
-
+import { Exception } from "../common/Exception";
+import { ServiceFailureException } from "../common/ServiceFailureException";
 import { Name } from "../names/Name";
 import { Directory } from "./Directory";
 
@@ -57,7 +58,33 @@ export class Node {
      * @param bn basename of node being searched for
      */
     public findNodes(bn: string): Set<Node> {
-        throw new Error("needs implementation or deletion");
+        const matches = new Set<Node>();
+        const stack: Node[] = [this]; //use a stack for iterative traversal
+    
+        try {
+            
+            while (stack.length > 0) {
+                const currentNode = stack.pop() as Node;
+    
+                //assert invariants
+                currentNode.assertClassInvariants();
+    
+                //check if the current node matches
+                if (currentNode.doGetBaseName() === bn) {
+                    matches.add(currentNode);
+                }
+    
+                //if Directory, add children to stack
+                if (currentNode instanceof Directory) {
+                    const directory = currentNode as Directory;
+                    directory.getChildNodes().forEach(child => stack.push(child));
+                }
+            }
+        } catch (error) {
+            throw new ServiceFailureException("Error while finding nodes", error as Exception);
+        }
+    
+        return matches;
     }
 
 }
