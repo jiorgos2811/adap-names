@@ -155,4 +155,5 @@ export class StringArrayName extends AbstractName {
         return this.components !== undefined;
     }
 
+
 }

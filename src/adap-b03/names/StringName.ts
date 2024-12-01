@@ -5,14 +5,30 @@ import { AbstractName } from "./AbstractName";
 export class StringName extends AbstractName {
 
     protected name: string = "";
-    protected noComponents: number = 0;
+    protected length: number = 0;
 
     constructor(other: string, delimiter?: string) {
         super();
         this.name = other;
         this.length = this.name.split(this.delimiter).length;
+        this.name = other;
+        this.length = this.name.split(this.delimiter).length;
     }
 
+    getNoComponents(): number {
+        if (this.name) {
+            return this.name.split(this.delimiter).length;
+        } else {
+            return 0;
+        }
+    }
+
+    getComponent(i: number): string {
+        const components = this.name.split(this.delimiter);
+        if (i >= 0 && i < components.length) {
+            return components[i];
+        }
+        else throw new Error("Index out of bounds");
     getNoComponents(): number {
         if (this.name) {
             return this.name.split(this.delimiter).length;

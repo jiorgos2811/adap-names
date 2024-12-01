@@ -16,10 +16,14 @@ export class File extends Node {
     constructor(baseName: string, parent: Directory) {
         // precondition
         IllegalArgumentException.assertIsNotNullOrUndefined(baseName,"Should not be null or undefined");
+        // precondition
+        IllegalArgumentException.assertIsNotNullOrUndefined(baseName,"Should not be null or undefined");
         super(baseName, parent);
     }
 
     public open(): void {
+        //precondition
+        IllegalArgumentException.assertCondition(this.doGetFileState() === FileState.CLOSED, "You can only open a closed files");
         //precondition
         IllegalArgumentException.assertCondition(this.doGetFileState() === FileState.CLOSED, "You can only open a closed files");
         // do something
@@ -31,6 +35,8 @@ export class File extends Node {
     }
 
     public close(): void {
+        //precondition
+        IllegalArgumentException.assertCondition(this.doGetFileState() === FileState.OPEN, "You can only close an open files");
         //precondition
         IllegalArgumentException.assertCondition(this.doGetFileState() === FileState.OPEN, "You can only close an open files");
         // do something
