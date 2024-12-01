@@ -29,18 +29,9 @@ export abstract class AbstractName implements Name {
         const result = escapedComponents.join(this.delimiter);
     
         return result;
-        const escapedComponents: string[] = [];
-    
-        for (let i = 0; i < this.getNoComponents(); i++) {
-            escapedComponents.push(this.getComponent(i));
-        }
-        const result = escapedComponents.join(this.delimiter);
-    
-        return result;
     }
 
     public toString(): string {
-        return this.asDataString();
         return this.asDataString();
     }
 
@@ -55,30 +46,9 @@ export abstract class AbstractName implements Name {
         const result = escapedComponents.join(this.delimiter);
     
         return result;
-        const escapedComponents: string[] = [];
-    
-        for (let i = 0; i < this.getNoComponents(); i++) {
-            //Replace instances of the delimiter in the component with the escape character + delimiter
-            const escapedComponent = this.getComponent(i).replaceAll(this.delimiter, ESCAPE_CHARACTER + this.delimiter);
-            escapedComponents.push(escapedComponent);
-        }
-        const result = escapedComponents.join(this.delimiter);
-    
-        return result;
     }
 
     public isEqual(other: Name): boolean {
-        const currentLength = this.getNoComponents();
-        const otherLength = other.getNoComponents();
-        if (currentLength != otherLength){
-            return false;
-        }
-        for (let i = 0; i < currentLength; i++) {
-            if (this.getComponent(i) != other.getComponent(i)) {
-                return false;
-            }
-        }
-        return true;
         const currentLength = this.getNoComponents();
         const otherLength = other.getNoComponents();
         if (currentLength != otherLength){
@@ -105,27 +75,13 @@ export abstract class AbstractName implements Name {
 
     public clone(): Name {
         return {...this};
-        let hashCode: number = 0;
-        const s: string = this.asDataString();
-        for (let i = 0; i < s.length; i++) {
-            let c = s.charCodeAt(i);
-            hashCode = (hashCode << 5) - hashCode + c;
-            hashCode |= 0;
-        }
-        return hashCode;
-    }
-
-    public clone(): Name {
-        return {...this};
     }
 
     public isEmpty(): boolean {
         return this.getNoComponents() == 0;
-        return this.getNoComponents() == 0;
     }
 
     public getDelimiterCharacter(): string {
-        return this.delimiter;
         return this.delimiter;
     }
 

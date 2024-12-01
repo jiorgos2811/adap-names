@@ -29,20 +29,6 @@ export class StringName extends AbstractName {
             return components[i];
         }
         else throw new Error("Index out of bounds");
-    getNoComponents(): number {
-        if (this.name) {
-            return this.name.split(this.delimiter).length;
-        } else {
-            return 0;
-        }
-    }
-
-    getComponent(i: number): string {
-        const components = this.name.split(this.delimiter);
-        if (i >= 0 && i < components.length) {
-            return components[i];
-        }
-        else throw new Error("Index out of bounds");
     }
 
     setComponent(i: number, c: string) {
