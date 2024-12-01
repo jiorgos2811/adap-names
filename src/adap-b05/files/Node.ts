@@ -76,10 +76,8 @@ export class Node {
                 }
     
                 //if Directory, add children to stack
-                if (currentNode instanceof Directory) {
-                    const directory = currentNode as Directory;
-                    directory.getChildNodes().forEach(child => stack.push(child));
-                }
+                //use polymorphic method to get children
+                stack.push(...currentNode.getChildren());
             }
         } catch (error) {
             throw new ServiceFailureException("Error while finding nodes", error as Exception);
@@ -87,6 +85,11 @@ export class Node {
     
         return matches;
     }
+
+    protected getChildren(): Node[] {
+        return []; //default is base nodes have no children
+    }
+    
 
     protected assertClassInvariants(): void {
         const bn: string = this.doGetBaseName();
