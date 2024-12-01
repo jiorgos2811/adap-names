@@ -89,38 +89,9 @@ export abstract class AbstractName implements Name {
         
         this.assertInvariant();
         return true;
-        //precondition
-        IllegalArgumentException.assertIsNotNullOrUndefined(other);
-        
-        const currentLength = this.getNoComponents();
-        const otherLength = other.getNoComponents();
-        
-        if (currentLength != otherLength) {
-            return false;
-        }
-        
-        for (let i = 0; i < currentLength; i++) {
-            if (this.getComponent(i) != other.getComponent(i)) {
-                return false;
-            }
-        }
-        
-        this.assertInvariant();
-        return true;
     }
 
     public getHashCode(): number {
-        let hashCode: number = 0;
-        const s: string = this.asDataString();
-        
-        for (let i = 0; i < s.length; i++) {
-            let c = s.charCodeAt(i);
-            hashCode = (hashCode << 5) - hashCode + c;
-            hashCode |= 0;
-        }
-        
-        this.assertInvariant();
-        return hashCode;
         let hashCode: number = 0;
         const s: string = this.asDataString();
         

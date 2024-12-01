@@ -38,10 +38,6 @@ export class StringName implements Name {
         return this.delimiter;
     }
 
-    public getDelimiterCharacter(): string {
-        return this.delimiter;
-    }
-
     public getNoComponents(): number {
         if (this.name) {
             return this.name.split(this.delimiter).length;
