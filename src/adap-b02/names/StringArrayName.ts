@@ -65,17 +65,9 @@ export class StringArrayName implements Name {
             throw new Error("Index out of bounds");
         }
         this.components[i] = c;
-        if (i < 0 || i >= this.components.length) {
-            throw new Error("Index out of bounds");
-        }
-        this.components[i] = c;
     }
 
     public insert(i: number, c: string): void {
-        if (i < 0 || i >= this.components.length) {
-            throw new Error("Index out of bounds");
-        }
-        this.components.splice(i, 0, c);
         if (i < 0 || i >= this.components.length) {
             throw new Error("Index out of bounds");
         }
@@ -84,7 +76,6 @@ export class StringArrayName implements Name {
 
     public append(c: string): void {
         this.components.push(c);
-        this.components.push(c);
     }
 
     public remove(i: number): void {
@@ -92,16 +83,9 @@ export class StringArrayName implements Name {
             throw new Error("Index out of bounds");
         }
         this.components.splice(i, 1);
-        if (i < 0 || i >= this.components.length) {
-            throw new Error("Index out of bounds");
-        }
-        this.components.splice(i, 1);
     }
 
     public concat(other: Name): void {
-        for (let i = 0; i < other.getNoComponents(); i++) {
-            this.components.push(other.getComponent(i));
-        }
         for (let i = 0; i < other.getNoComponents(); i++) {
             this.components.push(other.getComponent(i));
         }
