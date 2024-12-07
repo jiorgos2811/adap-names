@@ -25,20 +25,9 @@ export class StringArrayName implements Name {
 
     public asString(delimiter: string = this.delimiter): string {
         return this.components.join(delimiter);
-        return this.components.join(delimiter);
     }
 
     public asDataString(): string {
-        const escapedComponents: string[] = [];
-    
-        for (const component of this.components) {
-            //Replace instances of the delimiter in the component with the escape character + delimiter
-            const escapedComponent = component.replaceAll(this.delimiter, ESCAPE_CHARACTER + this.delimiter);
-            escapedComponents.push(escapedComponent);
-        }
-        const result = escapedComponents.join(this.delimiter);
-    
-        return result;
         const escapedComponents: string[] = [];
     
         for (const component of this.components) {
@@ -57,24 +46,13 @@ export class StringArrayName implements Name {
 
     public getDelimiterCharacter(): string {
         return this.delimiter;
-        return this.components.length == 0;
-    }
-
-    public getDelimiterCharacter(): string {
-        return this.delimiter;
     }
 
     public getNoComponents(): number {
         return this.components.length;
-        return this.components.length;
     }
 
     public getComponent(i: number): string {
-        if (i < 0 || i >= this.components.length) {
-            throw new Error("Index out of bounds");
-        }
-            
-        return this.components[i];
         if (i < 0 || i >= this.components.length) {
             throw new Error("Index out of bounds");
         }
