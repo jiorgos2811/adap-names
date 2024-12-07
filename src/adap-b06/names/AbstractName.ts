@@ -7,7 +7,7 @@ import { InvalidStateException } from "../common/InvalidStateException";
 
 export abstract class AbstractName implements Name {
 
-    protected delimiter: string = DEFAULT_DELIMITER;
+    protected readonly delimiter: string = DEFAULT_DELIMITER;
 
     constructor(delimiter: string = DEFAULT_DELIMITER) {
         //precondition
@@ -121,28 +121,21 @@ export abstract class AbstractName implements Name {
     abstract getNoComponents(): number;
 
     abstract getComponent(i: number): string;
-    abstract setComponent(i: number, c: string): void;
+    abstract setComponent(i: number, c: string): Name;
 
-    abstract insert(i: number, c: string): void;
-    abstract append(c: string): void;
-    abstract remove(i: number): void;
+    abstract insert(i: number, c: string): Name;
+    abstract append(c: string): Name;
+    abstract remove(i: number): Name;
 
-    public concat(other: Name): void {
+    public concat(other: Name): Name {
         //precondition
         IllegalArgumentException.assert(other != null && other != undefined, "Should not be null");
         
-        const initialSize = this.getNoComponents();
-        
+        let newName = <Name> this.clone();
         for (let i = 0; i < other.getNoComponents(); i++) {
-            this.append(other.getComponent(i));
+            newName = newName.append(other.getComponent(i));
         }
-        
-        //postcondition
-        MethodFailedException.assert(
-            this.getNoComponents() == initialSize + other.getNoComponents(),
-            "Concatenation failed: incorrect number of components"
-        );
-        this.assertInvariant();
+        return newName;
     }
 
     protected abstract isInitialized(): boolean;
