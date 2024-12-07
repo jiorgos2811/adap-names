@@ -14,6 +14,13 @@ export class StringArrayName implements Name {
         else {
             this.delimiter = DEFAULT_DELIMITER; 
         } 
+        this.components = other;
+        if (delimiter) {
+            this.delimiter = delimiter; 
+        } 
+        else {
+            this.delimiter = DEFAULT_DELIMITER; 
+        } 
     }
 
     public asString(delimiter: string = this.delimiter): string {
@@ -46,24 +53,14 @@ export class StringArrayName implements Name {
     }
 
     public getComponent(i: number): string {
-        if (i < 0 || i >= this.components.length) {
-            throw new Error("Index out of bounds");
-        }
-            
         return this.components[i];
     }
 
     public setComponent(i: number, c: string): void {
-        if (i < 0 || i >= this.components.length) {
-            throw new Error("Index out of bounds");
-        }
         this.components[i] = c;
     }
 
     public insert(i: number, c: string): void {
-        if (i < 0 || i >= this.components.length) {
-            throw new Error("Index out of bounds");
-        }
         this.components.splice(i, 0, c);
     }
 
@@ -72,9 +69,6 @@ export class StringArrayName implements Name {
     }
 
     public remove(i: number): void {
-        if (i < 0 || i >= this.components.length) {
-            throw new Error("Index out of bounds");
-        }
         this.components.splice(i, 1);
     }
 
