@@ -11,12 +11,12 @@ export abstract class AbstractName implements Name {
 
     constructor(delimiter: string = DEFAULT_DELIMITER) {
         //precondition
-        IllegalArgumentException.assertIsNotNullOrUndefined(delimiter, "Constructor precondition: delimiter must not be null or undefined");
+        IllegalArgumentException.assert(delimiter != null && delimiter != undefined, "Constructor precondition: delimiter must not be null or undefined");
         this.delimiter = delimiter;
         //postcondition
         this.assertInvariant();
         //precondition
-        IllegalArgumentException.assertIsNotNullOrUndefined(delimiter, "Constructor precondition: delimiter must not be null or undefined");
+        IllegalArgumentException.assert(delimiter != null && delimiter != undefined, "Constructor precondition: delimiter must not be null or undefined");
         this.delimiter = delimiter;
         //postcondition
         this.assertInvariant();
@@ -26,14 +26,14 @@ export abstract class AbstractName implements Name {
         const cloned = {...this};
         
         //postcondition
-        MethodFailedException.assertIsNotNullOrUndefined(cloned);
+        MethodFailedException.assert(cloned != null && cloned != undefined, "Should not be null");
         cloned.assertInvariant();
         return cloned;
     }
 
     public asString(delimiter: string = this.delimiter): string {
         //precondition
-        IllegalArgumentException.assertIsNotNullOrUndefined(delimiter);
+        IllegalArgumentException.assert(delimiter != null && delimiter != undefined, "Should not be null");
         
         const escapedComponents: string[] = [];
         for (let i = 0; i < this.getNoComponents(); i++) {
@@ -42,13 +42,12 @@ export abstract class AbstractName implements Name {
         const result = escapedComponents.join(delimiter);
         
         //postcondition
-        MethodFailedException.assertIsNotNullOrUndefined(result);
+        MethodFailedException.assert(result != null && result != undefined, "Should not be null or undefined");
         this.assertInvariant();
         return result;
     }
 
     public toString(): string {
-        return this.asDataString();
         return this.asDataString();
     }
 
@@ -65,14 +64,14 @@ export abstract class AbstractName implements Name {
         const result = escapedComponents.join(this.delimiter);
         
         //postcondition
-        MethodFailedException.assertIsNotNullOrUndefined(result);
+        MethodFailedException.assert(result != null && result != undefined, "Should not be null");
         this.assertInvariant();
         return result;
     }
 
     public isEqual(other: Name): boolean {
         //precondition
-        IllegalArgumentException.assertIsNotNullOrUndefined(other);
+        IllegalArgumentException.assert(other != null && other != undefined, "Should not be null");
         
         const currentLength = this.getNoComponents();
         const otherLength = other.getNoComponents();
@@ -108,7 +107,7 @@ export abstract class AbstractName implements Name {
     public isEmpty(): boolean {
         const result = this.getNoComponents() == 0;
         //postcondtion
-        MethodFailedException.assertCondition(
+        MethodFailedException.assert(
             result === (this.getNoComponents() === 0),
             "isEmpty result must match number of components"
         );
@@ -120,7 +119,7 @@ export abstract class AbstractName implements Name {
         const result = this.delimiter;
 
         // postcondition
-        MethodFailedException.assertIsNotNullOrUndefined(result);
+        MethodFailedException.assert(result != null && result != undefined, "Should not be null");
         return result;
     }
 
@@ -135,7 +134,7 @@ export abstract class AbstractName implements Name {
 
     public concat(other: Name): void {
         //precondition
-        IllegalArgumentException.assertIsNotNullOrUndefined(other);
+        IllegalArgumentException.assert(other != null && other != undefined, "Should not be null");
         
         const initialSize = this.getNoComponents();
         
@@ -144,7 +143,7 @@ export abstract class AbstractName implements Name {
         }
         
         //postcondition
-        MethodFailedException.assertCondition(
+        MethodFailedException.assert(
             this.getNoComponents() == initialSize + other.getNoComponents(),
             "Concatenation failed: incorrect number of components"
         );
@@ -154,13 +153,13 @@ export abstract class AbstractName implements Name {
     protected abstract isInitialized(): boolean;
     protected assertInvariant(): void {
         // Invariant 1: delimiter must not be null or undefined
-        InvalidStateException.assertIsNotNullOrUndefined(
-            this.delimiter,
+        InvalidStateException.assert(
+            this.delimiter != null && this.delimiter != undefined,
             "Invariant violated: delimiter must not be null or undefined"
         );
         
         // Invariant 2: delimiter must not contain the escape character
-        InvalidStateException.assertCondition(
+        InvalidStateException.assert(
             !this.delimiter.includes(ESCAPE_CHARACTER),
             "Invariant violated: delimiter must not contain the escape character"
         );
@@ -171,15 +170,15 @@ export abstract class AbstractName implements Name {
         }
 
         // Invariant 3: number of components must be non-negative
-        InvalidStateException.assertCondition(
+        InvalidStateException.assert(
             this.getNoComponents() >= 0,
             "Invariant violated: number of components must be non-negative"
         );
         
         // Invariant 4: all components must be non-null and defined
         for (let i = 0; i < this.getNoComponents(); i++) {
-            InvalidStateException.assertIsNotNullOrUndefined(
-                this.getComponent(i),
+            InvalidStateException.assert(
+                this.getComponent(i) != null && this.getComponent(i) != undefined,
                 `Invariant violated: component at index ${i} must not be null or undefined`
             );
         }

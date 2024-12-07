@@ -5,6 +5,7 @@ import { IllegalArgumentException } from "../common/IllegalArgumentException";
 import { MethodFailedException } from "../common/MethodFailedException";
 import { InvalidStateException } from "../common/InvalidStateException";
 
+
 export abstract class AbstractName implements Name {
 
     protected delimiter: string = DEFAULT_DELIMITER;

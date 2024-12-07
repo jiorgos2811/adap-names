@@ -9,44 +9,33 @@ export class StringArrayName extends AbstractName {
 
     protected components: string[] = [];
 
-    constructor(source: string[], delimiter?: string) {
-        super();
-        throw new Error("needs implementation or deletion");
-    }
-
-    public clone(): Name {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public asString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public asDataString(): string {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public isEqual(other: Name): boolean {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public getHashCode(): number {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public isEmpty(): boolean {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public getDelimiterCharacter(): string {
-        throw new Error("needs implementation or deletion");
+    constructor(other: string[], delimiter?: string) {
+        //precondition
+        IllegalArgumentException.assert(
+            other != null && other != undefined,
+            "Component array cannot be null"
+        );
+        IllegalArgumentException.assert(
+            other.every(component => component !== null && component !== undefined),
+            "All components must be non-null"
+        );
+        
+        super(delimiter);
+        this.components = other; 
+        
+        //postcondition
+        MethodFailedException.assert(
+            this.getNoComponents() === other.length,
+            "Number of components must match input array length"
+        );
+        this.assertInvariant();
     }
 
     public getNoComponents(): number {
         const count = this.components.length;
         
         //postcondition
-        MethodFailedException.assertCondition(
+        MethodFailedException.assert(
             count >= 0,
             "Component count must be non-negative"
         );
@@ -55,7 +44,7 @@ export class StringArrayName extends AbstractName {
 
     public getComponent(i: number): string {
         //precondition
-        IllegalArgumentException.assertCondition(
+        IllegalArgumentException.assert(
             i >= 0 && i < this.components.length,
             "Index must be non-negative and less than number of components"
         );
@@ -63,8 +52,8 @@ export class StringArrayName extends AbstractName {
         const result = this.components[i];
         
         //postcondition
-        MethodFailedException.assertIsNotNullOrUndefined(
-            result,
+        MethodFailedException.assert(
+            result != null && result != undefined,
             "Retrieved component cannot be null"
         );
         return result;
@@ -72,19 +61,19 @@ export class StringArrayName extends AbstractName {
 
     public setComponent(i: number, c: string) {
         //precondition
-        IllegalArgumentException.assertCondition(
+        IllegalArgumentException.assert(
             i >= 0 && i < this.components.length,
             "Index must be non-negative and less than number of components"
         );
-        IllegalArgumentException.assertIsNotNullOrUndefined(
-            c,
+        IllegalArgumentException.assert(
+            c != null && c != undefined,
             "Component cannot be null"
         );
 
         this.components[i] = c;
         
         //postcondition
-        MethodFailedException.assertCondition(
+        MethodFailedException.assert(
             this.components[i] === c,
             "Component was not set correctly"
         );
@@ -94,12 +83,12 @@ export class StringArrayName extends AbstractName {
 
     public insert(i: number, c: string) {
         //precondition
-        IllegalArgumentException.assertCondition(
+        IllegalArgumentException.assert(
             i >= 0 && i < this.components.length,
             "Index must be non-negative and less than number of components"
         );
-        IllegalArgumentException.assertIsNotNullOrUndefined(
-            c,
+        IllegalArgumentException.assert(
+            c != null && c != undefined,
             "Component cannot be null"
         );
 
@@ -107,11 +96,11 @@ export class StringArrayName extends AbstractName {
         this.components.splice(i, 0, c);
         
         // Postconditions
-        MethodFailedException.assertCondition(
+        MethodFailedException.assert(
             this.components.length === oldLength + 1,
             "Array length must increase by 1"
         );
-        MethodFailedException.assertCondition(
+        MethodFailedException.assert(
             this.components[i] === c,
             "Inserted component must match input"
         );
@@ -119,19 +108,19 @@ export class StringArrayName extends AbstractName {
     }
 
     public append(c: string) {
-        IllegalArgumentException.assertIsNotNullOrUndefined(
-            c,
+        IllegalArgumentException.assert(
+            c != null && c != undefined,
             "Component cannot be null"
         );
         const oldLength = this.components.length;
         this.components.push(c);
         
         //postcondition
-        MethodFailedException.assertCondition(
+        MethodFailedException.assert(
             this.components.length === oldLength + 1,
             "Array length must increase by 1"
         );
-        MethodFailedException.assertCondition(
+        MethodFailedException.assert(
             this.components[this.components.length - 1] === c,
             "Appended component must match input"
         );
@@ -140,7 +129,7 @@ export class StringArrayName extends AbstractName {
 
     public remove(i: number) {
         //precondition
-        IllegalArgumentException.assertCondition(
+        IllegalArgumentException.assert(
             i >= 0 && i < this.components.length,
             "Index must be non-negative and less than number of components"
         );
@@ -149,11 +138,11 @@ export class StringArrayName extends AbstractName {
         this.components.splice(i, 1);
         
         // Postconditions
-        MethodFailedException.assertCondition(
+        MethodFailedException.assert(
             this.components.length === oldLength - 1,
             "Array length must decrease by 1"
         );
-        MethodFailedException.assertCondition(
+        MethodFailedException.assert(
             !this.components.includes(removedComponent) || 
             this.components.indexOf(removedComponent) !== i,
             "Component must be removed from specified position"

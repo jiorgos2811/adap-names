@@ -25,9 +25,20 @@ export class StringArrayName implements Name {
 
     public asString(delimiter: string = this.delimiter): string {
         return this.components.join(delimiter);
+        return this.components.join(delimiter);
     }
 
     public asDataString(): string {
+        const escapedComponents: string[] = [];
+    
+        for (const component of this.components) {
+            //Replace instances of the delimiter in the component with the escape character + delimiter
+            const escapedComponent = component.replaceAll(this.delimiter, ESCAPE_CHARACTER + this.delimiter);
+            escapedComponents.push(escapedComponent);
+        }
+        const result = escapedComponents.join(this.delimiter);
+    
+        return result;
         const escapedComponents: string[] = [];
     
         for (const component of this.components) {
@@ -46,13 +57,24 @@ export class StringArrayName implements Name {
 
     public getDelimiterCharacter(): string {
         return this.delimiter;
+        return this.components.length == 0;
+    }
+
+    public getDelimiterCharacter(): string {
+        return this.delimiter;
     }
 
     public getNoComponents(): number {
         return this.components.length;
+        return this.components.length;
     }
 
     public getComponent(i: number): string {
+        if (i < 0 || i >= this.components.length) {
+            throw new Error("Index out of bounds");
+        }
+            
+        return this.components[i];
         if (i < 0 || i >= this.components.length) {
             throw new Error("Index out of bounds");
         }
@@ -65,9 +87,17 @@ export class StringArrayName implements Name {
             throw new Error("Index out of bounds");
         }
         this.components[i] = c;
+        if (i < 0 || i >= this.components.length) {
+            throw new Error("Index out of bounds");
+        }
+        this.components[i] = c;
     }
 
     public insert(i: number, c: string): void {
+        if (i < 0 || i >= this.components.length) {
+            throw new Error("Index out of bounds");
+        }
+        this.components.splice(i, 0, c);
         if (i < 0 || i >= this.components.length) {
             throw new Error("Index out of bounds");
         }
@@ -76,6 +106,7 @@ export class StringArrayName implements Name {
 
     public append(c: string): void {
         this.components.push(c);
+        this.components.push(c);
     }
 
     public remove(i: number): void {
@@ -83,9 +114,16 @@ export class StringArrayName implements Name {
             throw new Error("Index out of bounds");
         }
         this.components.splice(i, 1);
+        if (i < 0 || i >= this.components.length) {
+            throw new Error("Index out of bounds");
+        }
+        this.components.splice(i, 1);
     }
 
     public concat(other: Name): void {
+        for (let i = 0; i < other.getNoComponents(); i++) {
+            this.components.push(other.getComponent(i));
+        }
         for (let i = 0; i < other.getNoComponents(); i++) {
             this.components.push(other.getComponent(i));
         }
