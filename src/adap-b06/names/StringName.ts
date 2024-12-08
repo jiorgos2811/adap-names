@@ -155,6 +155,12 @@ export class StringName extends AbstractName {
         return newName;
     }
 
+    public equals(other: any): boolean {
+        if (!super.equals(other)) return false;
+        if (!(other instanceof StringName)) return false;
+        return this.name === other.name;
+    }
+
     //Checks if initialized in order to avoid infinite calls with assertInvariance
     protected isInitialized(): boolean {
         return this.name !== undefined;

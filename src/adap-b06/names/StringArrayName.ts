@@ -142,6 +142,15 @@ export class StringArrayName extends AbstractName {
         
     }
 
+    public equals(other: any): boolean {
+        if (!super.equals(other)) return false;
+        if (!(other instanceof StringArrayName)) return false;
+        if (this.components.length !== other.components.length) return false;
+
+        // Compare each component
+        return this.components.every((c, i) => c === other.components[i]);
+    }
+
     //Checks if initialized in order to avoid infinite calls with assertInvariance
     protected isInitialized(): boolean {
         return this.components !== undefined;

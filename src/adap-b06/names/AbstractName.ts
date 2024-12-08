@@ -85,6 +85,12 @@ export abstract class AbstractName implements Name {
         return true;
     }
 
+    public equals(other: any): boolean {
+        if (this === other) return true;
+        if (!(other instanceof AbstractName)) return false;
+        return this.delimiter === other.delimiter;
+    }
+
     public getHashCode(): number {
         let hashCode: number = 0;
         const s: string = this.asDataString();
